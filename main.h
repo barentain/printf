@@ -40,8 +40,8 @@ struct fmt
 typedef struct fmt fmt_t;
 
 int _printf(const char *format, ...);
-int handle_print(const char *fmt, int *i,
-va_list list, char buffer[], int flags, int width, int precision, int size);
+int handle_print(const char *fmt, int *index, va_list list,
+		char buffer[], int flag, int width, int precision, int size);
 
 /****************** FUNCTIONS ******************/
 
@@ -80,9 +80,9 @@ int print_pointer(va_list types, char buffer[],
 
 /* Funciotns to handle other specifiers */
 int get_flags(const char *format, int *i);
-int get_width(const char *format, int *i, va_list list);
-int get_precision(const char *format, int *i, va_list list);
-int get_size(const char *format, int *i);
+int get_width(const char *format, int *a, va_list list);
+int get_precision(const char *format, int *a, va_list list);
+int get_size(const char *format, int *a);
 
 /*Function to print string in reverse*/
 int print_reverse(va_list types, char buffer[],
@@ -94,20 +94,18 @@ int print_rot13string(va_list types, char buffer[],
 
 /* width handler */
 int handle_write_char(char c, char buffer[],
-	int flags, int width, int precision, int size);
-int write_number(int is_positive, int ind, char buffer[],
-	int flags, int width, int precision, int size);
-int write_num(int ind, char bff[], int flags, int width, int precision,
-	int length, char padd, char extra_c);
-int write_pointer(char buffer[], int ind, int length,
-	int width, int flags, char padd, char extra_c, int padd_start);
-
-int write_unsgnd(int is_negative, int ind,
-char buffer[],
-	int flags, int width, int precision, int size);
+		int flag, int width, int precision, int size);
+int write_number(int is_negative, int index, char buffer[],
+		int flag, int width, int precision, int size);
+int write_num(int index, char buffer[], int flag, int width,
+		int precision, int length, char padding, char excess_char);
+int write_pointer(char buffer[], int index, int length, int width,
+		int flag, char padding, char excess_char, int padding_start);
+int write_unsgnd(int is_negative, int index, char buffer[],
+		int flag, int width, int precision, int size);
 
 /****************** UTILS ******************/
-int is_printable(char);
+int is_printable(char c);
 int append_hexa_code(char, char[], int);
 int is_digit(char);
 
